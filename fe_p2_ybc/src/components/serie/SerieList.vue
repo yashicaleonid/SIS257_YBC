@@ -7,6 +7,7 @@ import Button from 'primevue/button'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 
+
 const ENDPOINT = 'series'
 const series = ref<Serie[]>([])
 const emit = defineEmits(['edit'])
@@ -21,9 +22,10 @@ async function obtenerLista() {
 const seriesFiltradas = computed(() => {
   return series.value.filter(
     (serie) =>
-      serie.titulo.toLowerCase().includes(busqueda.value.toLowerCase()) ||
+     serie.titulo.toLowerCase().includes(busqueda.value.toLowerCase()) ||
       serie.director.toLowerCase().includes(busqueda.value.toLowerCase()) ||
-      serie.pais.descripcion.toLowerCase().includes(busqueda.value.toLowerCase())
+      serie.plataforma_principal.toLowerCase().includes(busqueda.value.toLowerCase()) ||
+      serie.pais.descripcion.toLowerCase().includes(busqueda.value.toLowerCase()),
   )
 })
 
@@ -75,6 +77,7 @@ defineExpose({ obtenerLista })
       <Column field="temporadas" header="Temporadas" />
       <Column field="fechaEstreno" header="Fecha de Estreno" />
       <Column field="pais.descripcion" header="País" />
+      <Column field="plataforma_principal" header="Plataforma" sortable />
       <Column header="Acciones" frozen alignFrozen="right" style="min-width: 120px">
         <template #body="{ data }">
           <Button icon="pi pi-pencil" aria-label="Editar" text @click="emitirEdicion(data)" />

@@ -6,7 +6,7 @@ import { CreateSerieDto } from './dto/create-serie.dto';
 @ApiTags('series')
 @Controller('series')
 export class SeriesController {
-  constructor(private readonly seriesService: SeriesService) { }
+  constructor(private readonly seriesService: SeriesService) {}
 
   @Post()
   @ApiOperation({ summary: 'Crear una serie' })

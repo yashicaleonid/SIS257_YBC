@@ -37,4 +37,9 @@ export class CreateSerieDto {
   @IsDefined({ message: 'El campo fechaEstreno debe estar definido' })
   @IsDateString({}, { message: 'El campo fechaEstreno debe ser tipo fecha' })
   readonly fechaEstreno: Date;
+
+  @ApiProperty()
+  @IsNotEmpty({ message: 'El campo plataforma_principal no debe ser vacío' })
+  @IsString({ message: 'El campo plataforma_principal debe ser de tipo cadena' })
+  readonly plataforma_principal: string;
 }

@@ -10,13 +10,12 @@ import InputNumber from 'primevue/inputnumber'
 import Button from 'primevue/button'
 import { ref, computed, watch } from 'vue'
 
-const ENDPOINT = 'series'
-
-const tiposClasificacion = [
-  { label: 'A', value: 'A' },
-  { label: 'B', value: 'B' },
-  { label: 'B+15', value: 'B+15' },
-  { label: 'C', value: 'C' },
+const plataformas = [
+  { label: 'Netflix', value: 'Netflix' },
+  { label: 'Disney+', value: 'Disney+' },
+  { label: 'Max', value: 'Max' },
+  { label: 'Paramount+', value: 'Paramount+' },
+  { label: 'Amazon Premium', value: 'Amazon Premium' }
 ]
 
 const props = defineProps({
@@ -52,7 +51,7 @@ async function handleSave() {
       sinopsis: serie.value.sinopsis,
       director: serie.value.director,
       temporadas: serie.value.temporadas,
-      clasificacion: serie.value.clasificacion, // Add this line
+      plataforma_principal: serie.value.plataforma_principal,
       fechaEstreno: serie.value.fechaEstreno
         ? serie.value.fechaEstreno.toISOString().split('T')[0] 
         : null,
@@ -87,7 +86,7 @@ watch(
           sinopsis: '',
           director: '',
           temporadas: 1,
-          clasificacion: '', // Add this line
+          plataforma_principal: '',
           fechaEstreno: new Date(),
           pais: { id: 0, descripcion: '' },
         }
@@ -153,20 +152,21 @@ watch(
         <InputNumber v-model="serie.temporadas" class="flex-auto" />
       </div>
       <div class="flex items-center gap-4 mb-4">
-        <label for="clasificacion" class="font-semibold w-3">Clasificación</label>
-        <Select
-          id="clasificacion"
-          v-model="serie.clasificacion"
-          :options="tiposClasificacion"
-          optionLabel="label"
-          optionValue="value"
-          placeholder="Seleccione una clasificación"
-          class="flex-auto"
-        />
-      </div>
-      <div class="flex items-center gap-4 mb-4">
         <label for="fecha_estreno" class="font-semibold w-3">Fecha de estreno</label>
         <Calendar v-model="serie.fechaEstreno" date-format="yy-mm-dd" showIcon class="flex-auto" />
+      </div>
+      <div class="flex items-center gap-4 mb-4">
+        <label for="plataforma_principal" class="font-semibold w-3">Plataforma Principal</label>
+        <Select
+          id="plataforma_principal"
+          v-model="serie.plataforma_principal"
+          :options="plataformas"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="Seleccione una plataforma"
+          class="flex-auto"
+          autofocus
+        />
       </div>
       <div class="flex justify-end gap-2">
         <Button
